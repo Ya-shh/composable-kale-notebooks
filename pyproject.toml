@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling>=1.5.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kubeflow-kale"
+dynamic = ["version"]
+description = "Kale with multi-notebook composition (kale --workflow)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache License Version 2.0" }
+dependencies = [
+  "kfp[kubernetes]>=2.16.0",
+  "autopep8>=2.0.0",
+  "astor>=0.8.1",
+  "networkx>=3.0.0",
+  "jinja2>=3.0.0",
+  "pyflakes>=3.0.0",
+  "dill>=0.3.8",
+  "IPython>=8.30.0",
+  "jupyter-client>=8.6.3",
+  "jupyter-core>=5.8.1",
+  "nbconvert>=7.16.0",
+  "nbformat>=5.10.4",
+  "ipykernel>=6.29.5",
+  "notebook>=7.4.4",
+  "packaging>=25.0",
+  "progress>=1.5",
+  "kubernetes>=30.0.0",
+]
+authors = [ { name = "Stefano Fioravanzo", email = "stefano.fioravanzo@gmail.com" } ]
+
+[project.scripts]
+kale = "kale.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "testfixtures"]
+
+[tool.hatch.version]
+path = "kale/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["kale"]
+
+[tool.hatch.build.targets.sdist]
+include = ["kale", "notebooks", "README.md", "LICENSE"]
